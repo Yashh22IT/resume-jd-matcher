@@ -26,3 +26,47 @@ Upload a resume (PDF/DOCX), paste a job description, and get:
 - **Deployment target:** Render/Railway (backend) + Streamlit Community Cloud (frontend)
 
 ## Project Structure
+
+resume-screener/
+├── app/
+│ ├── main.py # FastAPI app + /analyze endpoint
+│ ├── extraction.py # PDF/DOCX text extraction
+│ ├── matcher.py # Keyword matching, semantic similarity, scoring, suggestions
+│ └── skills_db.py # Curated skills database
+├── streamlit_app.py # Frontend UI
+├── requirements.txt
+└── README.md
+
+## Setup & Run Locally
+
+```bash
+# Clone the repo
+git clone https://github.com/Yashh22IT/resume-jd-matcher.git
+cd resume-jd-matcher
+
+# Create and activate a virtual environment
+python -m venv venv
+venv\Scripts\activate       # Windows
+source venv/bin/activate    # Mac/Linux
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Start the backend (Terminal 1)
+uvicorn app.main:app --reload
+
+# Start the frontend (Terminal 2, same venv activated)
+streamlit run streamlit_app.py
+```
+
+- Backend Swagger docs: `http://127.0.0.1:8000/docs`
+- Frontend UI: `http://localhost:8501`
+
+> Note: the first request downloads the `all-MiniLM-L6-v2` model (~80MB), which takes 30-60 seconds. It's cached after that.
+
+## Possible Future Improvements
+
+- Resume section/structure detection (Education, Experience, Skills)
+- Batch comparison — rank multiple resumes against one JD
+- Export analysis as a downloadable PDF report
+- Expand the skills database dynamically using NER instead of a fixed list
