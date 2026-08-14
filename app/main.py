@@ -1,7 +1,15 @@
 from fastapi import FastAPI, UploadFile, File, Form
+from fastapi.middleware.cors import CORSMiddleware
 from app.extraction import extract_text_from_pdf, extract_text_from_docx
 from app.matcher import compare_skills, semantic_similarity, compute_final_score, generate_suggestions
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 @app.get("/")
 def root():

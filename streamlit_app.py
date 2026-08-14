@@ -1,5 +1,9 @@
 import streamlit as st
 import requests
+try:
+    API_URL = st.secrets["API_URL"]
+except Exception:
+    API_URL = "http://127.0.0.1:8000/analyze"
 
 st.set_page_config(page_title="Resume Matcher", page_icon="📄", layout="centered")
 st.title("📄 Resume ↔ Job Description Matcher")
@@ -14,7 +18,7 @@ if st.button("Analyze"):
         files = {"resume_file": (resume_file.name, resume_file.getvalue())}
         data = {"job_description": job_description}
 
-        response = requests.post("http://127.0.0.1:8000/analyze", files=files, data=data)
+        response = requests.post(API_URL, files=files, data=data)
         result = response.json()
 
         st.divider()
