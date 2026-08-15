@@ -70,3 +70,5 @@ streamlit run streamlit_app.py
 - Batch comparison — rank multiple resumes against one JD
 - Export analysis as a downloadable PDF report
 - Expand the skills database dynamically using NER instead of a fixed list
+
+🔗 **Live Demo:** https://resumejd-matcher-yash22it.streamlit.app/
